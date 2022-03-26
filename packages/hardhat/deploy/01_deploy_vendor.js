@@ -20,21 +20,21 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const vendor = await ethers.getContract("Vendor", deployer);
 
   // Todo: transfer the tokens to the vendor
-  // console.log("\n 🏵  Sending all 1000 tokens to the vendor...\n");
-  //
-  // const transferTransaction = await yourToken.transfer(
-  //   vendor.address,
-  //   ethers.utils.parseEther("1000")
-  // );
+  console.log("\n 🏵  Sending all 1000 tokens to the vendor...\n");
 
-  //console.log("\n    ✅ confirming...\n");
-  //await sleep(5000); // wait 5 seconds for transaction to propagate
+  const transferTransaction = await yourToken.transfer(
+    vendor.address,
+    ethers.utils.parseEther("1000")
+  );
+
+  console.log("\n    ✅ confirming...\n");
+  await sleep(5000); // wait 5 seconds for transaction to propagate
 
   // ToDo: change address to your frontend address vvvv
-  // console.log("\n 🤹  Sending ownership to frontend address...\n")
-  // const ownershipTransaction = await vendor.transferOwnership("** YOUR FRONTEND ADDRESS **");
-  // console.log("\n    ✅ confirming...\n");
-  // const ownershipResult = await ownershipTransaction.wait();
+  console.log("\n 🤹  Sending ownership to frontend address...\n")
+  const ownershipTransaction = await vendor.transferOwnership("0x2146068972BbC5FF0D2B33B8335b53D5332C0EF6");
+  console.log("\n    ✅ confirming...\n");
+  const ownershipResult = await ownershipTransaction.wait();
 
   // ToDo: Verify your contract with Etherscan for public chains
   // if (chainId !== "31337") {

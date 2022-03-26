@@ -17,7 +17,7 @@ contract Vendor is Ownable {
 
   function buyTokens() public payable
   {
-    uint256 amount = (msg.value * tokensPerEth);
+    uint256 amount = (tokensPerEth * msg.value) / 1 ether;
     yourToken.transfer(msg.sender, amount);
     emit BuyTokens(msg.sender, msg.value, amount);
   }
@@ -28,7 +28,14 @@ contract Vendor is Ownable {
   }
 
   // ToDo: create a withdraw() function that lets the owner withdraw ETH
+  function withdraw() external onlyOwner {
+    (bool sent, ) = payable(msg.sender).call{value: address(this).balance}("");
+    require(sent, "Failed to send");
+  }
 
   // ToDo: create a sellTokens() function:
+  function sellTokens() external
+  {
 
+  }
 }
