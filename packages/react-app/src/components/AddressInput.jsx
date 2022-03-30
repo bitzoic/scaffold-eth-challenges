@@ -1,6 +1,6 @@
 import { CameraOutlined, QrcodeOutlined } from "@ant-design/icons";
 import { Badge, Input, message, Spin } from "antd";
-import { useLookupAddress } from "eth-hooks";
+import { useUserAddress } from "eth-hooks";
 import React, { useCallback, useState } from "react";
 import QrReader from "react-qr-reader";
 import Blockie from "./Blockie";
@@ -33,7 +33,7 @@ export default function AddressInput(props) {
   const [scan, setScan] = useState(false);
 
   const currentValue = typeof props.value !== "undefined" ? props.value : value;
-  const ens = useLookupAddress(props.ensProvider, currentValue);
+  const ens = useUserAddress(props.ensProvider, currentValue);
 
   const scannerButton = (
     <div
