@@ -82,13 +82,15 @@ contract DEX {
     uint256 eth_amount = (amount * address(this).balance) / totalLiquidity;
     uint256 token_amount = (amount * token_reserve) / totalLiquidity;
 
+    require(liquidity[msg.sender] >= eth_amount, "You do not have enough liquidity to withdraw");
+
     liquidity[msg.sender] = liquidity[msg.sender] - eth_amount;
     totalLiquidity = totalLiquidity - eth_amount;
 
     (bool sent, ) = msg.sender.call{value: eth_amount}("");
     require(sent, "Failed to send user eth.");
     require(token.transfer(msg.sender, token_amount), "Failed to transfer tokens");
-    
+
     return (eth_amount, token_amount);
   }
 
