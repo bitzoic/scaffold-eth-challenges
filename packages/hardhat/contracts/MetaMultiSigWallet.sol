@@ -18,6 +18,9 @@ contract MetaMultiSigWallet {
 
         for (uint i =0; i < _signers.length; i++)
         {
+            address newSigner = _signers[i];
+            require(newSigner != address(0), "A signer's address was null!");
+            require(signers[newSigner] == false, "Tried to add the same signer twice");
             signers[_signers[i]] = true;
             totalSigners = totalSigners + 1;
         }
